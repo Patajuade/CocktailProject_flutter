@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Description extends StatelessWidget {
-  String? description;
-  Description(this.description, Key? key);
+class Ingredients extends StatelessWidget {
+  final List<String> ingredients;
+  Ingredients(this.ingredients, Key? key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Text(
-        description??'No description found',
+        ingredients.join(' - '),
         style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }
+
+
 }
