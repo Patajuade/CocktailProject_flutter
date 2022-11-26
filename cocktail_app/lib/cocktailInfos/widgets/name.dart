@@ -8,10 +8,14 @@ class Name extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
       child: Text(
         name??'No name found',
-        style: Theme.of(context).textTheme.bodyText1,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          
+        ),
       ),
     );
   }

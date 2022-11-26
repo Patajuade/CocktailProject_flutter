@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 
 class Cocktail{
-  final String? description;
-  final String? name;
-  final String? id;
+  final String description;
+  final String name;
+  final String id;
   final List<String> ingredients;
-  final String? cocktailPicture;
+  final String cocktailPicture;
   //tags
   //picture
   //ingredients
-const Cocktail({this.description, this.name, this.id, required this.ingredients, this.cocktailPicture});
+const Cocktail({
+  required this.description, 
+  required this.name, 
+  required this.id, 
+  required this.ingredients, 
+  required this.cocktailPicture});
 
 
 }
