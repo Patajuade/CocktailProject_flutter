@@ -1,11 +1,9 @@
-import 'package:cocktail_app/cocktailInfos/widgets/cocktailPicture.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/description.dart';
+import 'package:cocktail_app/cocktailInfos/widgets/header.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
-import 'package:cocktail_app/cocktailInfos/widgets/name.dart';
-import 'package:cocktail_app/cocktailInfos/widgets/tags.dart';
 import 'package:cocktail_app/models/cocktail.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CocktailInfo extends StatelessWidget {
   late Cocktail cocktail;
@@ -34,18 +32,7 @@ class CocktailInfo extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Row(children: [
-            CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
-            Expanded(
-                child: Container(
-              //pour mettre une width à une colonne
-              width: double.infinity,
-              child: Column(children: [
-                Name(name: cocktail.name),
-                Tags(cocktail.tags),
-              ]),
-            ))
-          ]),
+          Header(cocktail: cocktail),
           Description(
             description: cocktail.description,
             key: key,

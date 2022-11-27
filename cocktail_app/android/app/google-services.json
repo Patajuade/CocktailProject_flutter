@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "857820406851",
+    "project_id": "cocktailapp-f69b6",
+    "storage_bucket": "cocktailapp-f69b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857820406851:android:41af2e4948594cda0c60f6",
+        "android_client_info": {
+          "package_name": "com.example.cocktail_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "857820406851-ujt4fjmotr93oc9jmjnf0imgdbv4esq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjlEykPjAHvSvGrDoAMo8j9h32wBbSZ7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "857820406851-ujt4fjmotr93oc9jmjnf0imgdbv4esq7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "857820406851-shae7uo0haa6ogiuj68r4i3bc549tq2g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cocktailApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
