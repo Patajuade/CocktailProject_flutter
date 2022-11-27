@@ -37,14 +37,101 @@ class CocktailInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flex(direction: Axis.horizontal, children: [
-              //picture
-            Image(image: NetworkImage(cocktail.cocktailPicture),
-            height: 150,
-            width: 150,),
-          
+              Container(
+                //TODO: extract to widget
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: ClipRRect(
+                  //to make the image round
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image(
+                    image: NetworkImage(cocktail.cocktailPicture),
+                    height: 150,
+                    width: 150,
+                  ),
+                ),
+              ),
               Flex(direction: Axis.vertical, children: [
                 Name(cocktail.name, key),
                 //tags
+                SizedBox(
+                  width: 200,
+                  child:Wrap(
+                  direction: Axis.horizontal,
+                  spacing: 5,
+                  runSpacing: 5,
+                  runAlignment: WrapAlignment.start,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.pink,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+                      child: const Text(
+                        'Alcool',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.blue,
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      child: const Text(
+                        'Fruit',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.green,
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      child: const Text(
+                        'Citron',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.blue,
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      child: const Text(
+                        'Fruit',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.green,
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      child: const Text(
+                        'Citron',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ) 
+                )
+                
               ]),
             ]),
             Description(
