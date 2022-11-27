@@ -1,3 +1,4 @@
+import 'package:cocktail_app/cocktailInfos/widgets/cocktailPicture.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/description.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/name.dart';
@@ -25,7 +26,7 @@ class CocktailInfo extends StatelessWidget {
         'Schweppes'
       ],
       cocktailPicture:
-          "https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg",
+          'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
     );
 
     return Scaffold(
@@ -37,6 +38,10 @@ class CocktailInfo extends StatelessWidget {
           children: [
             Flex(direction: Axis.horizontal, children: [
               //picture
+            Image(image: NetworkImage(cocktail.cocktailPicture),
+            height: 150,
+            width: 150,),
+          
               Flex(direction: Axis.vertical, children: [
                 Name(cocktail.name, key),
                 //tags
