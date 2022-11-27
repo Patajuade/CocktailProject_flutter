@@ -29,31 +29,42 @@ class CocktailInfo extends StatelessWidget {
     );
 
     return Scaffold(
-      body: Flex(
-        direction: Axis.vertical,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flex(direction: Axis.horizontal, children: [
-            //picture
-            Flex(direction: Axis.vertical, children: [
-              Name(cocktail.name, key),
-              //tags
+        body: Wrap(
+      children: [
+        Flex(
+          direction: Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flex(direction: Axis.horizontal, children: [
+              //picture
+              Flex(direction: Axis.vertical, children: [
+                Name(cocktail.name, key),
+                //tags
+              ]),
             ]),
-          ]),
-          Description(
-            description: cocktail.description,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            Description(
+              description: cocktail.description,
+              titleStyle: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              descriptionStyle: const TextStyle(
+                fontSize: 14,
+              ),
+              key: key,
             ),
-            descriptionStyle: const TextStyle(
-              fontSize: 14,
-            ),
-            key: key,
+          ],
+        ),
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: double.infinity,
+            maxWidth: double.infinity,
+            minHeight: 200,
+            maxHeight: 500,
           ),
-          Ingredients(cocktail.ingredients, key),
-        ],
-      ),
-    );
+          child: Ingredients(cocktail.ingredients, key),
+        ),
+      ],
+    ));
   }
 }
