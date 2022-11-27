@@ -2,15 +2,15 @@
 import 'package:flutter/material.dart';
 
 class Name extends StatelessWidget {
-  String? name;
-  Name(this.name, Key? key);
+  String name;
+  Name({required this.name, Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
       child: Text(
-        name??'No name found',
+        name,
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
