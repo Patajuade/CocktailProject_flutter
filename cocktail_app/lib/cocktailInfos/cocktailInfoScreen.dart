@@ -34,15 +34,18 @@ class CocktailInfo extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Row(
-              children: [
-                CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
-                Column(
-                  children: [
-                  Name(name: cocktail.name),
-                  Tags(cocktail.tags),
-                ]),
+          Row(children: [
+            CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
+            Expanded(
+                child: Container(
+              //pour mettre une width à une colonne
+              width: double.infinity,
+              child: Column(children: [
+                Name(name: cocktail.name),
+                Tags(cocktail.tags),
               ]),
+            ))
+          ]),
           Description(
             description: cocktail.description,
             key: key,
@@ -53,5 +56,3 @@ class CocktailInfo extends StatelessWidget {
     );
   }
 }
-
-
