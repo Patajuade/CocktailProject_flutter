@@ -1,3 +1,4 @@
+import 'package:cocktail_app/models/cocktail.dart';
 import 'package:flutter/material.dart';
 
 class Ingredients extends StatelessWidget {
@@ -24,6 +25,25 @@ class Ingredients extends StatelessWidget {
         );
       });
   }
+}
 
+class IngredientsList extends StatelessWidget{ 
+  final Cocktail cocktail; 
+  IngredientsList({required this.cocktail, Key? key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+      child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: double.infinity,
+              maxWidth: double.infinity,
+              minHeight: 200,
+              maxHeight: 500,
+            ),
+            child: Ingredients(cocktail.ingredients, key),
+          ),
+    );
+  }
 }

@@ -35,37 +35,23 @@ class CocktailInfo extends StatelessWidget {
       body: Column(
         children: [
           Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
                 Column(
                   children: [
-                  CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
                   Name(name: cocktail.name),
                   Tags(cocktail.tags),
                 ]),
               ]),
           Description(
             description: cocktail.description,
-            titleStyle: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            descriptionStyle: const TextStyle(
-              fontSize: 14,
-            ),
             key: key,
           ),
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              minWidth: double.infinity,
-              maxWidth: double.infinity,
-              minHeight: 200,
-              maxHeight: 500,
-            ),
-            child: Ingredients(cocktail.ingredients, key),
-          ),
+          IngredientsList(cocktail: cocktail, key: key)
         ],
       ),
     );
   }
 }
+
+
