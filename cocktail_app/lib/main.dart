@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
+import 'package:cocktail_app/cocktailOverview/cocktailOverviewScreen.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,19 +15,21 @@ void main() async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
- 
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        CocktailInfo.routeName: (context) => CocktailInfo(),
+      },
       title: 'Cocktail App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CocktailInfo(),
+      home: CocktailOverview(),
     );
   }
 }
