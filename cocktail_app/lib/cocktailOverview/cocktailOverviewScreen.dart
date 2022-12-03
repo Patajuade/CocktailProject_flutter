@@ -16,14 +16,12 @@ class CocktailOverview extends StatefulWidget {
 }
 
 class _CocktailOverview extends State<CocktailOverview> {
-  late CocktailBloc _bloc;
   late CocktailState _state;
 
   @override
   void initState() {
     super.initState();
     _state = CocktailState(FirebaseFirestore.instance);
-    _bloc = CocktailBloc(_state);
   }
 
   @override
@@ -40,12 +38,13 @@ class _CocktailOverview extends State<CocktailOverview> {
               }
               return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  var id = document.id;
                   var data = document.data() as Map<String, dynamic>;
                   return ListTile(
                     title: Text(data['name']),
                     onTap: () {
                       Navigator.pushNamed(context, CocktailInfo.routeName,
-                          arguments: Cocktail.fromJson(data));
+                          arguments: Cocktail.fromJson(data,id));
                     },
                     leading: Image(
                       image: NetworkImage(data['cocktailPicture']),
