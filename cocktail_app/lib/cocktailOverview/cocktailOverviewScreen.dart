@@ -58,39 +58,3 @@ class _CocktailOverview extends State<CocktailOverview> {
             }));
   }
 }
-
-// builder: (context, snapshot) {
-//               if (snapshot.hasError) {
-//                 return const Text("Error");
-//               }
-//               if (snapshot.connectionState == ConnectionState.waiting) {
-//                 return const Text("Loading");
-//               }
-//               return ListView(
-//                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
-//                   var data = document.data() as Map<String, dynamic>;
-//                   return ListTile(
-//                     title: Text(data['name']),
-//                     onTap: () {
-//                       Navigator.pushNamed(context, CocktailInfo.routeName,
-//                           arguments: Cocktail(
-//                               description: data['description'],
-//                               name: data['name'],
-//                               id: data['id'],
-//                               //ingredients: data['ingredients'],
-//                               cocktailPicture: data['cocktailPicture'],
-//                               //tags: data['tags'],
-//                               ingredients: [],
-//                               tags: []));
-//                     },
-//                     leading: Image(
-//                       image: NetworkImage(data['cocktailPicture']),
-//                       height: 40,
-//                       width: 40,
-//                     ),
-//                   );
-//                 }).toList(),
-//               );
-//             }));
-//   }
-// }
