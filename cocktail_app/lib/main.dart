@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/cocktailOverview/cocktailOverviewScreen.dart';
-import 'package:cocktail_app/models/cocktail.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,13 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CocktailOverview(),
+      home: const CocktailOverview(),
     );
   }
 }
-
-abstract class CocktailEvent {}
-
-// class CocktailBloc extends Bloc<CocktailEvent, List<Cocktail>> {
-//   CocktailBloc() : super() {}
-// }

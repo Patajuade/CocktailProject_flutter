@@ -1,8 +1,13 @@
-
-import 'package:cocktail_app/models/cocktail.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CocktailState {
-  final List<Cocktail> cocktails;
+  final FirebaseFirestore _db;
+  final Stream<QuerySnapshot> _cocktails;
 
-  CocktailState(this.cocktails);
+  CocktailState(this._db)
+      : _cocktails = _db.collection("cocktails").snapshots();
+
+  Stream<QuerySnapshot> get cocktails {
+    return _cocktails;
+  }
 }
