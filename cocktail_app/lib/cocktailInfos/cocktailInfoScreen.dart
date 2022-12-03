@@ -21,9 +21,9 @@ class CocktailInfo extends StatefulWidget {
 class _CocktailInfo extends State<CocktailInfo> {
   late CocktailState _state;
   late String cocktailId;
-  late Future<Cocktail> _cocktail = Future<Cocktail>.sync((){
+  late Future<Cocktail> _cocktail = Future<Cocktail>.sync(() {
     return _state.getCocktailById(cocktailId);
-  }); 
+  });
 
   @override
   void initState() {
@@ -32,22 +32,21 @@ class _CocktailInfo extends State<CocktailInfo> {
   }
 
   @override
-  Widget build(BuildContext context){
-        cocktailId = ModalRoute.of(context)!.settings.arguments as String;
+  Widget build(BuildContext context) {
+    cocktailId = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
-      body: FutureBuilder<Cocktail>(
-        future: _cocktail, 
-        builder: (context, snapshot) => 
-      snapshot.hasData?Column(
-        children: [
-          Header(cocktail: snapshot.data!),
-          Description(
-            description: snapshot.data!.description
-          ),
-          IngredientsList(cocktail: snapshot.data!)
-        ],
-      ):Text("error"),
+        body: FutureBuilder<Cocktail>(
+      future: _cocktail,
+      builder: (context, snapshot) => snapshot.hasData
+          ? Column(
+              children: [
+                Header(cocktail: snapshot.data!),
+                Description(description: snapshot.data!.description),
+                IngredientsList(cocktail: snapshot.data!)
+              ],
+            )
+          : Text("error"), //ternaire
     ));
   }
 }
