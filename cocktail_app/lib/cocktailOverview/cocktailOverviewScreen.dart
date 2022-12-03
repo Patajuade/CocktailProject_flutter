@@ -44,7 +44,7 @@ class _CocktailOverview extends State<CocktailOverview> {
                     title: Text(data['name']),
                     onTap: () {
                       Navigator.pushNamed(context, CocktailInfo.routeName,
-                          arguments: Cocktail.fromJson(data,id));
+                          arguments: id);
                     },
                     leading: Image(
                       image: NetworkImage(data['cocktailPicture']),
