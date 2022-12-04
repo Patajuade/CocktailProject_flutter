@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
 import 'package:cocktail_app/models/cocktail.dart';
+import 'package:cocktail_app/shared/goToCocktailInfo.dart';
 import 'package:cocktail_app/shared/goToCocktailOverview.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,9 @@ class _CocktailSettings extends State<CocktailSettings> {
 
     return Scaffold(
       persistentFooterButtons: [
-        GoToCocktailOverviewButton()
+        GoToCocktailOverviewButton(),
+        GoToCocktailInfoButton(cocktailId: cocktailId)
+
       ],
         body: FutureBuilder<Cocktail>( //pour afficher un cocktail de façon asynchrone depuis la db
       future: _cocktail,
