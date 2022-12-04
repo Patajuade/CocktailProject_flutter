@@ -39,8 +39,8 @@ class IngredientsList extends StatelessWidget{
             constraints: const BoxConstraints(
               minWidth: double.infinity,
               maxWidth: double.infinity,
-              minHeight: 200,
-              maxHeight: 500,
+              minHeight: 0,
+              maxHeight: 400,
             ),
             child: Ingredients(cocktail.ingredients, key),
           ),

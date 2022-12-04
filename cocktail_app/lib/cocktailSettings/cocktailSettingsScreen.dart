@@ -1,28 +1,19 @@
-import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
-import 'package:cocktail_app/cocktailInfos/widgets/description.dart';
-import 'package:cocktail_app/cocktailInfos/widgets/header.dart';
-import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
-import 'package:cocktail_app/cocktailOverview/cocktailOverviewScreen.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 import 'package:cocktail_app/shared/goToCocktailOverview.dart';
-import 'package:cocktail_app/shared/goToCocktailInfo.dart';
-import 'package:cocktail_app/shared/goToCocktailSettings.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CocktailInfo extends StatefulWidget {
-  static const routeName = '/CocktailInfo'; // appeller la var sans instancier la classe
+class CocktailSettings extends StatefulWidget {
+  static const routeName = '/CocktailSettings'; // appeller la var sans instancier la classe
 
-  const CocktailInfo({super.key});
+  const CocktailSettings({super.key});
 
   @override
-  State<CocktailInfo> createState() => _CocktailInfo();
+  State<CocktailSettings> createState() => _CocktailSettings();
 }
 
-class _CocktailInfo extends State<CocktailInfo> {
+class _CocktailSettings extends State<CocktailSettings> {
   late CocktailState _state;
   late String cocktailId;
   late Future<Cocktail> _cocktail = Future<Cocktail>.sync(() {
@@ -41,17 +32,14 @@ class _CocktailInfo extends State<CocktailInfo> {
 
     return Scaffold(
       persistentFooterButtons: [
-        GoToCocktailOverviewButton(),
-        GoToCocktailSettingsButton(cocktailId: cocktailId)
+        GoToCocktailOverviewButton()
       ],
         body: FutureBuilder<Cocktail>( //pour afficher un cocktail de façon asynchrone depuis la db
       future: _cocktail,
       builder: (context, snapshot) => snapshot.hasData
           ? Column(
               children: [
-                Header(cocktail: snapshot.data!),
-                Description(description: snapshot.data!.description),
-                IngredientsList(cocktail: snapshot.data!)
+                Text(snapshot.data!.name)
               ],
             )
           : Text("error"), //ternaire

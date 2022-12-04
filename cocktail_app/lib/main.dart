@@ -1,5 +1,6 @@
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/cocktailOverview/cocktailOverviewScreen.dart';
+import 'package:cocktail_app/cocktailSettings/cocktailSettingsScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        CocktailInfo.routeName: (context) => CocktailInfo(),
+        CocktailInfo.routeName: (context) => const CocktailInfo(),
+        CocktailOverview.routeName: (context) => const CocktailOverview(),
+        CocktailSettings.routeName: (context) => const CocktailSettings()
+        // "/CocktailInfo" : (context) => CocktailInfo()
       },
       title: 'Cocktail App',
       theme: ThemeData(

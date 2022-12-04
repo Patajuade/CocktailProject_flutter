@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CocktailOverview extends StatefulWidget {
+  static const routeName = '/CocktailOverview'; // appeller la var sans instancier la classe
 
   const CocktailOverview({super.key});
 
