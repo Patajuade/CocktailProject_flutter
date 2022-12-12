@@ -40,14 +40,14 @@ class _CocktailOverview extends State<CocktailOverview> {
               return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   var id = document.id;
-                  var data = document.data() as Map<String, dynamic>;
+                  var data = document.data() as Map<String, dynamic>; //comme en json : {string : dynamic}
                   return ListTile(
                     title: Text(data['name']),
                     onTap: () {
                       Navigator.pushNamed(context, CocktailInfo.routeName,
                           arguments: id);
                     },
-                    leading: Image(
+                    leading: Image( //premier élément, pour le mettre tout à gauche
                       image: NetworkImage(data['cocktailPicture']),
                       height: 40,
                       width: 40,

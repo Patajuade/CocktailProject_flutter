@@ -40,7 +40,7 @@ class IngredientsList extends StatelessWidget{
               minWidth: double.infinity,
               maxWidth: double.infinity,
               minHeight: 0,
-              maxHeight: 400,
+              maxHeight: 400, //pour éviter qu'lle s'étende
             ),
             child: Ingredients(cocktail.ingredients, key),
           ),
