@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+
+//https://stackoverflow.com/questions/60105956/how-to-cast-dynamic-to-liststring
 
 class Cocktail {
   final String description;
@@ -20,9 +23,14 @@ class Cocktail {
   factory Cocktail.fromJson(Map<String, dynamic> json) => Cocktail(
       description: json["description"],
       name: json["name"],
-      ingredients: [],
+      ingredients: fromJsonToList(json["ingredients"]),
       cocktailPicture: json["cocktailPicture"],
-      tags: []);
+      tags: fromJsonToList(json["tags"])
+      );
+
+  static List<String> fromJsonToList(dynamic property){ //transforme l'array dynamique en une liste de string
+    return List.from((property as List)?.map((item) => item as String)?.toList()??[]);
+  }
 
   Map<String,dynamic> toJson(){
     return {
@@ -30,7 +38,7 @@ class Cocktail {
       "name":name,
       "ingredients":[],
       "cocktailPicture":cocktailPicture,
-      "tags":[]
+      "tags":tags
     };
   }
 }
