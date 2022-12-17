@@ -1,8 +1,10 @@
+import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailBloc.dart';
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/cocktailOverview/cocktailOverviewScreen.dart';
 import 'package:cocktail_app/cocktailSettings/cocktailSettingsScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,7 +21,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CurrentCocktailBloc>(
+          create: (BuildContext context) => CurrentCocktailBloc()
+          )
+      ],
+      child: MaterialApp(
       routes: {
         CocktailInfo.routeName: (context) => const CocktailInfo(),
         CocktailOverview.routeName: (context) => const CocktailOverview(),
@@ -31,6 +39,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const CocktailOverview(),
-    );
+    ));
   }
 }

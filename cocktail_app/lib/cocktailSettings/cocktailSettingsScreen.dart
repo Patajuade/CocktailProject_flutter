@@ -1,12 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
-import 'package:cocktail_app/models/cocktail.dart';
+import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailBloc.dart';
+import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailEvents.dart';
+import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailStates.dart';
+import 'package:cocktail_app/cocktailSettings/widgets/textInput.dart';
 import 'package:cocktail_app/shared/goToCocktailInfo.dart';
-import 'package:cocktail_app/shared/goToCocktailOverview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CocktailSettings extends StatefulWidget {
-  static const routeName = '/CocktailSettings'; // appeller la var sans instancier la classe
+  static const routeName =
+      '/CocktailSettings'; // appeller la var sans instancier la classe
 
   const CocktailSettings({super.key});
 
@@ -15,37 +17,49 @@ class CocktailSettings extends StatefulWidget {
 }
 
 class _CocktailSettings extends State<CocktailSettings> {
-  late CocktailState _state;
-  late String cocktailId;
-  late Future<Cocktail> _cocktail = Future<Cocktail>.sync(() {
-    return _state.getCocktailById(cocktailId);
-  });
+  late String _cocktailId;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _state = CocktailState(FirebaseFirestore.instance);
   }
 
   @override
   Widget build(BuildContext context) {
-    cocktailId = ModalRoute.of(context)!.settings.arguments as String; //pour recupérer les arguments de la navigation de cocktailOverviewScreen
-
+    _cocktailId = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
-      persistentFooterButtons: [
-        GoToCocktailOverviewButton(),
-        GoToCocktailInfoButton(cocktailId: cocktailId)
+        persistentFooterButtons: [
+          // SaveCocktailButton(
+          //   cocktail: Cocktail(
+          //       description: descriptionController.value.text,
+          //       name: nameController.text,
+          //       ingredients: [],
+          //       cocktailPicture: "",
+          //       tags: []),
+          //   cocktailId: cocktailId,
+          // ),
+          GoToCocktailInfoButton(cocktailId: _cocktailId)
+        ],
+        body: BlocBuilder<CurrentCocktailBloc, CurrentCocktailState>(
+            builder: (context, state) {
+          if (state is CurrentCocktailLoadedState) {
+            // initialisation des champs via le cocktail courant dans bloc
+            nameController.text = state.cocktail?.name ?? "";
+            descriptionController.text = state.cocktail?.description ?? ""; 
 
-      ],
-        body: FutureBuilder<Cocktail>( //pour afficher un cocktail de façon asynchrone depuis la db
-      future: _cocktail,
-      builder: (context, snapshot) => snapshot.hasData
-          ? Column(
+            return Column(
               children: [
-                Text(snapshot.data!.name)
+                TextInput(nameController),
+                TextInput(descriptionController)
               ],
-            )
-          : Text("error"), //ternaire
-    ));
+            );
+          }
+          context
+              .read<CurrentCocktailBloc>()
+              .add(SetCurrentCocktailEvent(_cocktailId));
+          return Text("Loading");
+        }));
   }
 }
