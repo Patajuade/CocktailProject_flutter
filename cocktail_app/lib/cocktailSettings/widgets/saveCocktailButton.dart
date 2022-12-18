@@ -1,6 +1,6 @@
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailBloc.dart';
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailEvents.dart';
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailStates.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailBloc.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailEvents.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class SaveCocktailButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: BlocBuilder<CurrentCocktailBloc, CurrentCocktailState>(
+        child: BlocBuilder<CocktailBloc, CocktailState>(
             builder: (context, state) {
           return IconButton(
                 icon: const Icon(Icons.save),
@@ -24,7 +24,7 @@ class SaveCocktailButton extends StatelessWidget {
                 iconSize: 32,
                 onPressed: () {
                   Navigator.pushNamed(context,CocktailInfo.routeName,arguments: cocktailId);
-                  context.read<CurrentCocktailBloc>().add(UpdateCocktailEvent(cocktailId, cocktail));
+                  context.read<CocktailBloc>().add(UpdateCurrentCocktailEvent(cocktailId, cocktail));
                 } );
         }));
   }

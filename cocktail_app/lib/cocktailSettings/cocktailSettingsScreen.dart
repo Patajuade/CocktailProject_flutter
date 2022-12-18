@@ -1,6 +1,6 @@
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailBloc.dart';
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailEvents.dart';
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailStates.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailBloc.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailEvents.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
 import 'package:cocktail_app/cocktailSettings/widgets/saveCocktailButton.dart';
 import 'package:cocktail_app/cocktailSettings/widgets/textInput.dart';
 import 'package:cocktail_app/models/cocktail.dart';
@@ -43,9 +43,9 @@ class _CocktailSettings extends State<CocktailSettings> {
                   name: nameController.text)),
           GoToCocktailInfoButton(_cocktailId)
         ],
-        body: BlocBuilder<CurrentCocktailBloc, CurrentCocktailState>(
-            builder: (context, state) {
-          if (state is CurrentCocktailLoadedState) {
+        body:
+            BlocBuilder<CocktailBloc, CocktailState>(builder: (context, state) {
+          if (state is CocktailLoadedState) {
             // initialisation des champs via le cocktail courant dans bloc
             nameController.text = state.cocktail?.name ?? "";
             descriptionController.text = state.cocktail?.description ?? "";
@@ -58,8 +58,8 @@ class _CocktailSettings extends State<CocktailSettings> {
             );
           }
           context
-              .read<CurrentCocktailBloc>()
-              .add(SetCurrentCocktailEvent(_cocktailId));
+              .read<CocktailBloc>()
+              .add(SetCurrentCocktailEvent(state.id, state.cocktails));
           return Text("Loading");
         }));
   }

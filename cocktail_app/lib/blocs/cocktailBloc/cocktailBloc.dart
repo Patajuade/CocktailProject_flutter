@@ -9,25 +9,47 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // https://firebase.google.com/docs/firestore/query-data/get-data
 
 class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
-  CocktailBloc(CocktailState state) : super(state) {
-
-    on<AddCocktailEvent>((event, emit) {
-      //state.cocktails.add(event.cocktail);
-      emit(state);
+  CocktailBloc() : super(CocktailLoadingState(null, null, null)) {
+    on<LoadCocktailListEvent>((event, emit) async {
+      var cocktail = event.cocktail;
+      var cocktailId = event.id;
+      var items = FirebaseFirestore.instance
+          .collection("cocktails")
+          .get(); //pour récupérer tous les documents
+      var cocktailsFuture = await items;
+      var cocktailsData = cocktailsFuture.docs;
+      print("LoadCocktailListEvent : CocktailLoadedState");
+      emit(CocktailLoadedState(cocktailsData, cocktail, cocktailId));
     });
 
-    on<RemoveCocktailEvent>((event, emit) {
-      //state.cocktails.doc(event.cocktail.id).delete();
-      emit(state);
+    on<SetCurrentCocktailEvent>((event, emit) async {
+      var cocktailList = event.cocktails;
+      var cocktailId = event.id;
+      var item = FirebaseFirestore.instance
+          .collection("cocktails")
+          .doc(event.id) //pour récupérer 1 document via l'ID
+          .get();
+      var cocktailFuture = await item;
+      var cocktailData = cocktailFuture.data();
+      var cocktail = Cocktail.fromJson(cocktailData!);
+      print("SetCurrentCocktailEvent : CocktailLoadedState");
+      emit(CocktailLoadedState(cocktailList, cocktail, cocktailId));
     });
 
-    on<UpdateCocktailEvent>((event, emit) {
-      emit(state);
+    on<ClearCurrentCocktailEvent>((event, emit) async {
+      print("ClearCurrentCocktailEvent : CocktailLoadingState");
+      emit(CocktailLoadingState(null, null, null));
     });
 
-    on<LoadCocktailEvent>((event, emit) {
-      emit(state);
-    });
-
+    on<UpdateCurrentCocktailEvent>(
+      (event, emit) async {
+        FirebaseFirestore.instance
+            .collection("cocktails")
+            .doc(event.id)
+            .set(event.cocktail.toJson());
+        print("UpdateCurrentCocktailEvent : CocktailLoadingState");
+        emit(CocktailLoadingState(null, null, null));
+      },
+    );
   }
 }

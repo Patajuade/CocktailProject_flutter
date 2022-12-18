@@ -29,7 +29,7 @@ class Cocktail {
       );
 
   static List<String> fromJsonToList(dynamic property){ //transforme l'array dynamique en une liste de string
-    return List.from((property as List)?.map((item) => item as String)?.toList()??[]);
+    return List.from((property as List).map((item) => item as String).toList());
   }
 
   Map<String,dynamic> toJson(){

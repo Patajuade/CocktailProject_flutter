@@ -1,14 +1,18 @@
-import 'package:cocktail_app/models/cocktail.dart';
+// import 'package:cocktail_app/models/cocktail.dart';
 
-class CurrentCocktailEvent {}
+// class CurrentCocktailEvent {}
 
-class SetCurrentCocktailEvent extends CurrentCocktailEvent {
-  final String id;
-  SetCurrentCocktailEvent(this.id);
-}
+// class SetCurrentCocktailEvent extends CurrentCocktailEvent {
+//   final String id;
+//   SetCurrentCocktailEvent(this.id);
+// }
 
-class UpdateCocktailEvent extends CurrentCocktailEvent {
-  final String id;
-  final Cocktail cocktail;
-  UpdateCocktailEvent(this.id, this.cocktail);
-}
+// class ClearCurrentCocktailEvent extends CurrentCocktailEvent {
+//   ClearCurrentCocktailEvent();
+// }
+
+// class UpdateCurrentCocktailEvent extends CurrentCocktailEvent {
+//   final String id;
+//   final Cocktail cocktail;
+//   UpdateCurrentCocktailEvent(this.id, this.cocktail);
+// }

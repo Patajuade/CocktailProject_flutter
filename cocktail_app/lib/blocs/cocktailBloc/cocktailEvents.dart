@@ -1,24 +1,26 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 
 class CocktailEvent {}
 
-class AddCocktailEvent extends CocktailEvent {
-  final Cocktail cocktail;
-  AddCocktailEvent(this.cocktail);
+class LoadCocktailListEvent extends CocktailEvent {
+  final String? id;
+  final Cocktail? cocktail;
+  LoadCocktailListEvent(this.id, this.cocktail);
 }
 
-class RemoveCocktailEvent extends CocktailEvent {
-  final Cocktail cocktail;
-  RemoveCocktailEvent(this.cocktail);
+class SetCurrentCocktailEvent extends CocktailEvent {
+  final String? id;
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? cocktails;
+  SetCurrentCocktailEvent(this.id, this.cocktails);
 }
 
-class UpdateCocktailEvent extends CocktailEvent {
-  final Cocktail cocktail;
-  UpdateCocktailEvent(this.cocktail);
+class ClearCurrentCocktailEvent extends CocktailEvent {
+  ClearCurrentCocktailEvent();
 }
 
-class LoadCocktailEvent extends CocktailEvent{
-  final List<Cocktail> cocktails;
-  LoadCocktailEvent(this.cocktails);
+class UpdateCurrentCocktailEvent extends CocktailEvent {
+  final String id;
+  final Cocktail cocktail;
+  UpdateCurrentCocktailEvent(this.id, this.cocktail);
 }

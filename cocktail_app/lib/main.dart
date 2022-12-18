@@ -1,4 +1,4 @@
-import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailBloc.dart';
+import 'package:cocktail_app/blocs/cocktailBloc/cocktailBloc.dart';
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/cocktailOverview/cocktailOverviewScreen.dart';
 import 'package:cocktail_app/cocktailSettings/cocktailSettingsScreen.dart';
@@ -22,23 +22,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<CurrentCocktailBloc>(
-          create: (BuildContext context) => CurrentCocktailBloc()
-          )
-      ],
-      child: MaterialApp(
-      routes: {
-        CocktailInfo.routeName: (context) => const CocktailInfo(),
-        CocktailOverview.routeName: (context) => const CocktailOverview(),
-        CocktailSettings.routeName: (context) => const CocktailSettings()
-        // "/CocktailInfo" : (context) => CocktailInfo()
-      },
-      title: 'Cocktail App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const CocktailOverview(),
-    ));
+        providers: [
+          BlocProvider<CocktailBloc>(
+              create: (BuildContext context) => CocktailBloc())
+        ],
+        child: MaterialApp(
+          routes: {
+            CocktailInfo.routeName: (context) => const CocktailInfo(),
+            CocktailOverview.routeName: (context) => const CocktailOverview(),
+            CocktailSettings.routeName: (context) => const CocktailSettings()
+            // "/CocktailInfo" : (context) => CocktailInfo()
+          },
+          title: 'Cocktail App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const CocktailOverview(),
+        ));
   }
 }
