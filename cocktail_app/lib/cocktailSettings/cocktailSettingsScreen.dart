@@ -1,7 +1,9 @@
 import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailBloc.dart';
 import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailEvents.dart';
 import 'package:cocktail_app/blocs/currentCocktailBloc/currentCocktailStates.dart';
+import 'package:cocktail_app/cocktailSettings/widgets/saveCocktailButton.dart';
 import 'package:cocktail_app/cocktailSettings/widgets/textInput.dart';
+import 'package:cocktail_app/models/cocktail.dart';
 import 'package:cocktail_app/shared/goToCocktailInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,23 +33,22 @@ class _CocktailSettings extends State<CocktailSettings> {
     _cocktailId = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
         persistentFooterButtons: [
-          // SaveCocktailButton(
-          //   cocktail: Cocktail(
-          //       description: descriptionController.value.text,
-          //       name: nameController.text,
-          //       ingredients: [],
-          //       cocktailPicture: "",
-          //       tags: []),
-          //   cocktailId: cocktailId,
-          // ),
-          GoToCocktailInfoButton(cocktailId: _cocktailId)
+          SaveCocktailButton(
+              _cocktailId,
+              Cocktail(
+                  cocktailPicture: "",
+                  description: descriptionController.text,
+                  ingredients: [],
+                  tags: [],
+                  name: nameController.text)),
+          GoToCocktailInfoButton(_cocktailId)
         ],
         body: BlocBuilder<CurrentCocktailBloc, CurrentCocktailState>(
             builder: (context, state) {
           if (state is CurrentCocktailLoadedState) {
             // initialisation des champs via le cocktail courant dans bloc
             nameController.text = state.cocktail?.name ?? "";
-            descriptionController.text = state.cocktail?.description ?? ""; 
+            descriptionController.text = state.cocktail?.description ?? "";
 
             return Column(
               children: [

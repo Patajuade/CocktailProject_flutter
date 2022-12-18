@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class GoToCocktailInfoButton extends StatelessWidget {
   final String cocktailId;
-  GoToCocktailInfoButton({Key? key, required this.cocktailId});
+  GoToCocktailInfoButton(this.cocktailId);
   
 
   @override

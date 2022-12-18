@@ -23,5 +23,13 @@ class CurrentCocktailBloc
       var cocktail = Cocktail.fromJson(cocktailData!);
       emit(CurrentCocktailLoadedState(cocktail));
     });
+
+    on<UpdateCocktailEvent>((event, emit) async {
+      var item = FirebaseFirestore.instance
+          .collection("cocktails")
+          .doc(event.id)
+          .set(event.cocktail.toJson());
+      emit(CurrentCocktailLoadingState());
+    },);
   }
 }
