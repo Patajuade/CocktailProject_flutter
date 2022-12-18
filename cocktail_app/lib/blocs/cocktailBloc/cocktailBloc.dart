@@ -18,7 +18,6 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
           .get(); //pour récupérer tous les documents
       var cocktailsFuture = await items;
       var cocktailsData = cocktailsFuture.docs;
-      print("LoadCocktailListEvent : CocktailLoadedState");
       emit(CocktailLoadedState(cocktailsData, cocktail, cocktailId));
     });
 
@@ -32,12 +31,10 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
       var cocktailFuture = await item;
       var cocktailData = cocktailFuture.data();
       var cocktail = Cocktail.fromJson(cocktailData!);
-      print("SetCurrentCocktailEvent : CocktailLoadedState");
       emit(CocktailLoadedState(cocktailList, cocktail, cocktailId));
     });
 
     on<ClearCurrentCocktailEvent>((event, emit) async {
-      print("ClearCurrentCocktailEvent : CocktailLoadingState");
       emit(CocktailLoadingState(null, null, null));
     });
 
@@ -47,7 +44,6 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
             .collection("cocktails")
             .doc(event.id)
             .set(event.cocktail.toJson());
-        print("UpdateCurrentCocktailEvent : CocktailLoadingState");
         emit(CocktailLoadingState(null, null, null));
       },
     );
