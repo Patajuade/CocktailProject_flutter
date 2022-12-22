@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
 import 'package:flutter/cupertino.dart';
 
 //https://stackoverflow.com/questions/60105956/how-to-cast-dynamic-to-liststring
@@ -40,5 +41,21 @@ class Cocktail {
       "cocktailPicture":cocktailPicture,
       "tags":tags
     };
+  }
+
+  set name(String name){
+    this.name = name;
+  }
+  set description(String description){
+    this.description = description;
+  }
+  set ingredients(List<String> ingredients){
+    this.ingredients = ingredients;
+  }
+  set tags(List<String> tags){
+    this.tags = tags;
+  }
+  set cocktailPicture(String cocktailPicture){
+    this.cocktailPicture = cocktailPicture;
   }
 }

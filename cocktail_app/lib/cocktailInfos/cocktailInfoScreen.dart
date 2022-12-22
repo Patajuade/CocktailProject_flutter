@@ -4,6 +4,7 @@ import 'package:cocktail_app/cocktailInfos/widgets/description.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/header.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
 import 'package:cocktail_app/shared/goToCocktailOverview.dart';
+import 'package:cocktail_app/shared/goToCocktailSettings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,8 +31,9 @@ class _CocktailInfo extends State<CocktailInfo> {
         return const Scaffold(body: Text("Loading"));
       }
       return Scaffold(
-          persistentFooterButtons: [
-            GoToCocktailOverviewButton(),
+          persistentFooterButtons: const [
+            GoToCocktailSettingsButton(),
+            GoToCocktailOverviewButton()
           ],
           body: Column(
             children: [

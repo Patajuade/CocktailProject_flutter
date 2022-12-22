@@ -22,5 +22,6 @@ class ClearCurrentCocktailEvent extends CocktailEvent {
 class UpdateCurrentCocktailEvent extends CocktailEvent {
   final String id;
   final Cocktail cocktail;
-  UpdateCurrentCocktailEvent(this.id, this.cocktail);
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? cocktails;
+  UpdateCurrentCocktailEvent(this.id, this.cocktail, this.cocktails);
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GoToCocktailOverviewButton extends StatelessWidget {
-  GoToCocktailOverviewButton({Key? key});
+  const GoToCocktailOverviewButton({super.key});
 
   @override
   Widget build(BuildContext context) {

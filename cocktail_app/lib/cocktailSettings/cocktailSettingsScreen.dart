@@ -1,8 +1,7 @@
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailBloc.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailEvents.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
-import 'package:cocktail_app/cocktailSettings/widgets/saveCocktailButton.dart';
-import 'package:cocktail_app/cocktailSettings/widgets/textInput.dart';
+import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 import 'package:cocktail_app/shared/goToCocktailInfo.dart';
 import 'package:flutter/material.dart';
@@ -19,48 +18,55 @@ class CocktailSettings extends StatefulWidget {
 }
 
 class _CocktailSettings extends State<CocktailSettings> {
-  late String _cocktailId;
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    _cocktailId = ModalRoute.of(context)!.settings.arguments as String;
-    return Scaffold(
-        persistentFooterButtons: [
-          SaveCocktailButton(
-              _cocktailId,
-              Cocktail(
-                  cocktailPicture: "",
-                  description: descriptionController.text,
-                  ingredients: [],
-                  tags: [],
-                  name: nameController.text)),
-          GoToCocktailInfoButton(_cocktailId)
-        ],
-        body:
-            BlocBuilder<CocktailBloc, CocktailState>(builder: (context, state) {
-          if (state is CocktailLoadedState) {
-            // initialisation des champs via le cocktail courant dans bloc
-            nameController.text = state.cocktail?.name ?? "";
-            descriptionController.text = state.cocktail?.description ?? "";
+    return BlocBuilder<CocktailBloc, CocktailState>(builder: (context, state) {
+      var cocktailId = state.id;
 
-            return Column(
-              children: [
-                TextInput(nameController),
-                TextInput(descriptionController)
-              ],
-            );
-          }
-          context
-              .read<CocktailBloc>()
-              .add(SetCurrentCocktailEvent(state.id, state.cocktails));
-          return Text("Loading");
-        }));
+      if (state is CocktailLoadingState ||
+          state.cocktail == null ||
+          cocktailId == null) {
+        context
+            .read<CocktailBloc>()
+            .add(SetCurrentCocktailEvent(state.id, state.cocktails));
+        return const Scaffold(body: Text("Loading"));
+      }
+
+      var nameController = TextEditingController();
+      var descriptionController = TextEditingController();
+      nameController.text=state.cocktail!.name;
+      descriptionController.text=state.cocktail!.description;
+      return Scaffold(
+          persistentFooterButtons: [
+            IconButton(
+                icon: const Icon(Icons.save),
+                color: Colors.black,
+                iconSize: 32,
+                onPressed: () => {
+                      context.read<CocktailBloc>().add(
+                          UpdateCurrentCocktailEvent(
+                              state.id!,
+                              Cocktail(
+                                  cocktailPicture: state.cocktail!.cocktailPicture,
+                                  description: descriptionController.text,
+                                  ingredients: state.cocktail!.ingredients,
+                                  name: nameController.text,
+                                  tags: state.cocktail!.tags),
+                              state.cocktails)),
+                      Navigator.pushNamed(context, CocktailInfo.routeName),
+                    }),
+            const GoToCocktailInfoButton()
+          ],
+          body: Column(
+            children: [
+              TextFormField(
+                controller: nameController,
+              ),
+              TextFormField(
+                controller: descriptionController,
+              )
+            ],
+          ));
+    });
   }
 }

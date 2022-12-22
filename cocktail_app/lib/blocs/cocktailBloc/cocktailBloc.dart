@@ -40,11 +40,14 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
 
     on<UpdateCurrentCocktailEvent>(
       (event, emit) async {
+      var cocktail = event.cocktail;
+      var cocktailList = event.cocktails;
+      var cocktailId = event.id;
         FirebaseFirestore.instance
             .collection("cocktails")
             .doc(event.id)
             .set(event.cocktail.toJson());
-        emit(CocktailLoadingState(null, null, null));
+        emit(CocktailLoadedState(cocktailList, cocktail, cocktailId));
       },
     );
   }
