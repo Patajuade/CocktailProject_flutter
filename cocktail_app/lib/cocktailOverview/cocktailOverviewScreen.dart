@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailBloc.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailEvents.dart';
