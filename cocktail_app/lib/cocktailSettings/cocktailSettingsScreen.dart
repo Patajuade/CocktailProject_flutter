@@ -3,7 +3,7 @@ import 'package:cocktail_app/blocs/cocktailBloc/cocktailEvents.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailStates.dart';
 import 'package:cocktail_app/cocktailInfos/cocktailInfoScreen.dart';
 import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
-import 'package:cocktail_app/cocktailSettings/widgets/removableIngredients.dart';
+import 'package:cocktail_app/cocktailSettings/widgets/removableListview.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 import 'package:cocktail_app/shared/goToCocktailInfo.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +37,7 @@ class _CocktailSettings extends State<CocktailSettings> {
       var nameController = TextEditingController();
       var descriptionController = TextEditingController();
       var addIngredientController = TextEditingController();
+      var addTagController = TextEditingController();
       nameController.text = state.cocktail!.name;
       descriptionController.text = state.cocktail!.description;
 
@@ -80,19 +81,18 @@ class _CocktailSettings extends State<CocktailSettings> {
                     onPressed: (() {
                       var ingredientList = state.cocktail!.ingredients;
                       ingredientList.add(addIngredientController.text);
-                              return context.read<CocktailBloc>().add(
-                                  UpdateCurrentCocktailEvent(
-                                      state.id!,
-                                      Cocktail(
-                                          cocktailPicture:
-                                              state.cocktail!.cocktailPicture,
-                                          description:
-                                              state.cocktail!.description,
-                                          ingredients: ingredientList,
-                                          name: state.cocktail!.name,
-                                          tags: state.cocktail!.tags),
-                                      state.cocktails));
-                            }),
+                      return context.read<CocktailBloc>().add(
+                          UpdateCurrentCocktailEvent(
+                              state.id!,
+                              Cocktail(
+                                  cocktailPicture:
+                                      state.cocktail!.cocktailPicture,
+                                  description: state.cocktail!.description,
+                                  ingredients: ingredientList,
+                                  name: state.cocktail!.name,
+                                  tags: state.cocktail!.tags),
+                              state.cocktails));
+                    }),
                     icon: const Icon(Icons.add_circle),
                     color: Colors.green,
                   ),
@@ -101,10 +101,10 @@ class _CocktailSettings extends State<CocktailSettings> {
                       minWidth: double.infinity,
                       maxWidth: double.infinity,
                       minHeight: 0,
-                      maxHeight: 400, //pour éviter qu'lle s'étende
+                      maxHeight: 100, //pour éviter qu'lle s'étende
                     ),
-                    child: RemovableIngredients(
-                        ingredients: state.cocktail!.ingredients,
+                    child: RemovableListview(
+                        items: state.cocktail!.ingredients,
                         onPressed: ((ingredientName) => {
                               context.read<CocktailBloc>().add(
                                   UpdateCurrentCocktailEvent(
@@ -118,6 +118,56 @@ class _CocktailSettings extends State<CocktailSettings> {
                                               .cocktail!.ingredients
                                               .where((element) =>
                                                   element != ingredientName)
+                                              .toList(),
+                                          name: state.cocktail!.name,
+                                          tags: state.cocktail!.tags),
+                                      state.cocktails))
+                            })),
+                  ),
+                  TextFormField(
+                    controller: addTagController,
+                  ),
+                  IconButton(
+                    onPressed: (() {
+                      var tagList = state.cocktail!.tags;
+                      tagList.add(addTagController.text);
+                      return context.read<CocktailBloc>().add(
+                          UpdateCurrentCocktailEvent(
+                              state.id!,
+                              Cocktail(
+                                  cocktailPicture:
+                                      state.cocktail!.cocktailPicture,
+                                  description: state.cocktail!.description,
+                                  ingredients: state.cocktail!.ingredients,
+                                  name: state.cocktail!.name,
+                                  tags: tagList),
+                              state.cocktails));
+                    }),
+                    icon: const Icon(Icons.add_circle),
+                    color: Colors.green,
+                  ),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: double.infinity,
+                      maxWidth: double.infinity,
+                      minHeight: 0,
+                      maxHeight: 200, //pour éviter qu'lle s'étende
+                    ),
+                    child: RemovableListview(
+                        items: state.cocktail!.tags,
+                        onPressed: ((tagName) => {
+                              context.read<CocktailBloc>().add(
+                                  UpdateCurrentCocktailEvent(
+                                      state.id!,
+                                      Cocktail(
+                                          cocktailPicture:
+                                              state.cocktail!.cocktailPicture,
+                                          description:
+                                              state.cocktail!.description,
+                                          ingredients: state
+                                              .cocktail!.ingredients
+                                              .where((element) =>
+                                                  element != tagName)
                                               .toList(),
                                           name: state.cocktail!.name,
                                           tags: state.cocktail!.tags),
