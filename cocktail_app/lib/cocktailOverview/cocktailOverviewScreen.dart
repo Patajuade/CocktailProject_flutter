@@ -35,18 +35,32 @@ class _CocktailOverview extends State<CocktailOverview> {
         //TODO : LoadingScreen
       } //si il a pas reussi à charger le state
       var cocktails = state.cocktails;
-        if (cocktails == null || cocktails.isEmpty) {
-          return const Scaffold(body: Text("Empty list"));
-          //TODO: rediriger sur la addCocktailScreen
-        }
-        return Scaffold(
-            body: ListView(
-          children: cocktails.map((document) {
-            var id = document.id;
-            var data = document.data();
-            return Tile(Cocktail.fromJson(data), id);
-          }).toList(),
-        ));
+      if (cocktails == null || cocktails.isEmpty) {
+        return const Scaffold(body: Text("Empty list"));
+        //TODO: rediriger sur la addCocktailScreen
+      }
+      return Scaffold(
+          persistentFooterButtons: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    context
+                        .read<CocktailBloc>()
+                        .add(AddNewCocktailEvent(cocktails));
+                        context
+                        .read<CocktailBloc>()
+                        .add(LoadCocktailListEvent(state.id,state.cocktail));
+                  });
+                },
+                icon: const Icon(Icons.add_circle))
+          ],
+          body: ListView(
+            children: cocktails.map((document) {
+              var id = document.id;
+              var data = document.data();
+              return Tile(Cocktail.fromJson(data), id);
+            }).toList(),
+          ));
     });
   }
 }

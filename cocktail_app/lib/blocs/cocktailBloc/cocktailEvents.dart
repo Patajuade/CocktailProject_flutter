@@ -25,3 +25,8 @@ class UpdateCurrentCocktailEvent extends CocktailEvent {
   final List<QueryDocumentSnapshot<Map<String, dynamic>>>? cocktails;
   UpdateCurrentCocktailEvent(this.id, this.cocktail, this.cocktails);
 }
+
+class AddNewCocktailEvent extends CocktailEvent {
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? cocktails;
+  AddNewCocktailEvent(this.cocktails);
+}

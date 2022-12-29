@@ -83,6 +83,7 @@ class _CocktailSettings extends State<CocktailSettings> {
                       ingredientList.add(addIngredientController.text);
                       return context.read<CocktailBloc>().add(
                           UpdateCurrentCocktailEvent(
+                            //TODO : add specific event
                               state.id!,
                               Cocktail(
                                   cocktailPicture:
