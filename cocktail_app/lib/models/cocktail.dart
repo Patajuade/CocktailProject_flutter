@@ -37,7 +37,7 @@ class Cocktail {
     return {
       "description":description,
       "name":name,
-      "ingredients":[],
+      "ingredients":ingredients,
       "cocktailPicture":cocktailPicture,
       "tags":tags
     };
