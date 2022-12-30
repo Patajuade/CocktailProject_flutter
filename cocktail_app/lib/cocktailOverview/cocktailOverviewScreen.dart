@@ -38,22 +38,15 @@ class _CocktailOverview extends State<CocktailOverview> {
         //TODO : LoadingScreen
       } //si il a pas reussi à charger le state
       var cocktails = state.cocktails;
-      if (cocktails == null || cocktails.isEmpty) {
-        return const Scaffold(body: Text("Empty list"));
-        //TODO: rediriger sur la addCocktailScreen
-      }
-
-      var searchController = TextEditingController();
 
       _onSearchChanged(String query) {
         if (_debounce?.isActive ?? false) _debounce!.cancel();
         _debounce = Timer(const Duration(milliseconds: 500), () {
-          print("on est dans _onSearchChanged");
-          // context.read<CocktailBloc>().add(ClearCurrentCocktailEvent());
           context
               .read<CocktailBloc>()
-              .add(FilterCocktailListEvent(state.id, state.cocktail));
+              .add(FilterCocktailListEvent(query,state.id, state.cocktail));
         });
+
       }
 
       @override
@@ -71,8 +64,7 @@ class _CocktailOverview extends State<CocktailOverview> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                   child: TextFormField(
                     onChanged: _onSearchChanged,
-                    controller: searchController,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
                       hintText: " Search...(tags, ingredients, name)",
                       hintStyle: TextStyle(color: Colors.white38),
@@ -80,7 +72,7 @@ class _CocktailOverview extends State<CocktailOverview> {
                   )),
             ],
             automaticallyImplyLeading: false,
-            leading: Icon(Icons.search),
+            leading: const Icon(Icons.search),
             backgroundColor: Colors.deepOrange,
           ),
           persistentFooterButtons: [
@@ -97,13 +89,13 @@ class _CocktailOverview extends State<CocktailOverview> {
                 },
                 icon: const Icon(Icons.add_circle))
           ],
-          body: ListView(
+          body: cocktails != null && cocktails.isNotEmpty? ListView(
             children: cocktails.map((document) {
               var id = document.id;
               var data = document.data();
               return Tile(Cocktail.fromJson(data), id);
             }).toList(),
-          ));
+          ):const Text("nothing found"));
     });
   }
 }

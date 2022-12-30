@@ -73,14 +73,15 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
       (event, emit) async {
         var cocktail = event.cocktail;
         var cocktailId = event.id;
-        var items = FirebaseFirestore.instance
-            .collection("cocktails")
-            .where("name", isEqualTo: "New Cocktail")
-            .get(); //pour récupérer tous les documents
-        var cocktailsFuture = await items;
-        var cocktailsData = cocktailsFuture.docs;
-        print("FilterCocktailListEvent");
-        emit(CocktailLoadedState(cocktailsData, cocktail, cocktailId));
+        var refs = FirebaseFirestore.instance.collection("cocktails");
+        // pas possible d'utiliser where pour la searchbar + flemme d'utiliser un service externe (elastique,algolia,...)
+        var cocktailsRefs = await refs.get();
+        var cocktailsData = cocktailsRefs.docs;
+        var filteredData = cocktailsData.where((cocktail) =>
+            cocktail.get("name").toString().contains(event.filter)
+            || cocktail.get('tags').toString().contains(event.filter)
+            || cocktail.get('ingredients').toString().contains(event.filter));
+        emit(CocktailLoadedState(filteredData.toList(), cocktail, cocktailId));
       },
     );
   }

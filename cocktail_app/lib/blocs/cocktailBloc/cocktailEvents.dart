@@ -34,5 +34,6 @@ class AddNewCocktailEvent extends CocktailEvent {
 class FilterCocktailListEvent extends CocktailEvent {
   final String? id;
   final Cocktail? cocktail;
-  FilterCocktailListEvent(this.id, this.cocktail);
+  final String filter;
+  FilterCocktailListEvent(this.filter,this.id, this.cocktail);
 }
