@@ -165,13 +165,13 @@ class _CocktailSettings extends State<CocktailSettings> {
                                               state.cocktail!.cocktailPicture,
                                           description:
                                               state.cocktail!.description,
-                                          ingredients: state
-                                              .cocktail!.ingredients
+                                          tags: state
+                                              .cocktail!.tags
                                               .where((element) =>
                                                   element != tagName)
                                               .toList(),
                                           name: state.cocktail!.name,
-                                          tags: state.cocktail!.tags),
+                                          ingredients: state.cocktail!.ingredients),
                                       state.cocktails))
                             })),
                   ),
