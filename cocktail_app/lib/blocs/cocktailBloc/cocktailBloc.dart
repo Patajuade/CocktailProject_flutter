@@ -68,5 +68,20 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
         emit(CocktailLoadingState(null, null, null));
       },
     );
+
+    on<FilterCocktailListEvent>(
+      (event, emit) async {
+        var cocktail = event.cocktail;
+        var cocktailId = event.id;
+        var items = FirebaseFirestore.instance
+            .collection("cocktails")
+            .where("name", isEqualTo: "New Cocktail")
+            .get(); //pour récupérer tous les documents
+        var cocktailsFuture = await items;
+        var cocktailsData = cocktailsFuture.docs;
+        print("FilterCocktailListEvent");
+        emit(CocktailLoadedState(cocktailsData, cocktail, cocktailId));
+      },
+    );
   }
 }

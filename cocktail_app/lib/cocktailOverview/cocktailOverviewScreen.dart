@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailBloc.dart';
 import 'package:cocktail_app/blocs/cocktailBloc/cocktailEvents.dart';
@@ -19,6 +21,7 @@ class CocktailOverview extends StatefulWidget {
 }
 
 class _CocktailOverview extends State<CocktailOverview> {
+  Timer? _debounce;
   @override
   void initState() {
     super.initState();
@@ -39,7 +42,47 @@ class _CocktailOverview extends State<CocktailOverview> {
         return const Scaffold(body: Text("Empty list"));
         //TODO: rediriger sur la addCocktailScreen
       }
+
+      var searchController = TextEditingController();
+
+      _onSearchChanged(String query) {
+        if (_debounce?.isActive ?? false) _debounce!.cancel();
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          print("on est dans _onSearchChanged");
+          // context.read<CocktailBloc>().add(ClearCurrentCocktailEvent());
+          context
+              .read<CocktailBloc>()
+              .add(FilterCocktailListEvent(state.id, state.cocktail));
+        });
+      }
+
+      @override
+      void dispose() {
+        _debounce?.cancel();
+        super.dispose();
+      }
+
       return Scaffold(
+          appBar: AppBar(
+            actions: [
+              Container(
+                  width: 350,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+                  child: TextFormField(
+                    onChanged: _onSearchChanged,
+                    controller: searchController,
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      hintText: " Search...(tags, ingredients, name)",
+                      hintStyle: TextStyle(color: Colors.white38),
+                    ),
+                  )),
+            ],
+            automaticallyImplyLeading: false,
+            leading: Icon(Icons.search),
+            backgroundColor: Colors.deepOrange,
+          ),
           persistentFooterButtons: [
             IconButton(
                 onPressed: () {
@@ -47,9 +90,9 @@ class _CocktailOverview extends State<CocktailOverview> {
                     context
                         .read<CocktailBloc>()
                         .add(AddNewCocktailEvent(cocktails));
-                        context
+                    context
                         .read<CocktailBloc>()
-                        .add(LoadCocktailListEvent(state.id,state.cocktail));
+                        .add(LoadCocktailListEvent(state.id, state.cocktail));
                   });
                 },
                 icon: const Icon(Icons.add_circle))
