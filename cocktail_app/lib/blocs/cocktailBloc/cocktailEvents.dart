@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocktail_app/cocktailInfos/widgets/ingredients.dart';
 import 'package:cocktail_app/models/cocktail.dart';
 
 class CocktailEvent {}
@@ -36,4 +37,20 @@ class FilterCocktailListEvent extends CocktailEvent {
   final Cocktail? cocktail;
   final String filter;
   FilterCocktailListEvent(this.filter,this.id, this.cocktail);
+}
+
+class AddTagToCocktailEvent extends CocktailEvent {
+  final String id;
+  final Cocktail? cocktail;
+  final String tag;
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? cocktails;
+  AddTagToCocktailEvent(this.id,this.tag, this.cocktail, this.cocktails);
+}
+
+class AddIngredientToCocktailEvent extends CocktailEvent {
+  final String id;
+  final Cocktail? cocktail;
+  final String ingredient;
+  final List<QueryDocumentSnapshot<Map<String, dynamic>>>? cocktails;
+  AddIngredientToCocktailEvent(this.id, this.ingredient, this.cocktail, this.cocktails);
 }

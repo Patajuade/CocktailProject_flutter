@@ -45,8 +45,8 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
         var cocktailId = event.id;
         FirebaseFirestore.instance
             .collection("cocktails")
-            .doc(event.id)
-            .set(event.cocktail.toJson());
+            .doc(cocktailId)
+            .set(cocktail.toJson());
         emit(CocktailLoadedState(cocktailList, cocktail, cocktailId));
       },
     );
@@ -78,10 +78,40 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
         var cocktailsRefs = await refs.get();
         var cocktailsData = cocktailsRefs.docs;
         var filteredData = cocktailsData.where((cocktail) =>
-            cocktail.get("name").toString().contains(event.filter)
-            || cocktail.get('tags').toString().contains(event.filter)
-            || cocktail.get('ingredients').toString().contains(event.filter));
+            cocktail.get("name").toString().contains(event.filter) ||
+            cocktail.get('tags').toString().contains(event.filter) ||
+            cocktail.get('ingredients').toString().contains(event.filter));
         emit(CocktailLoadedState(filteredData.toList(), cocktail, cocktailId));
+      },
+    );
+
+    on<AddTagToCocktailEvent>(
+      (event, emit) async {
+        var cocktail = event.cocktail;
+        var cocktailList = event.cocktails;
+        var cocktailId = event.id;
+        var tag = event.tag;
+        cocktail!.tags.add(tag);
+        FirebaseFirestore.instance
+            .collection("cocktails")
+            .doc(event.id)
+            .update({"tags":FieldValue.arrayUnion(cocktail.tags)}); //https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
+        emit(CocktailLoadedState(cocktailList, cocktail, cocktailId));
+      },
+    );
+
+    on<AddIngredientToCocktailEvent>(
+      (event, emit) async {
+        var cocktail = event.cocktail;
+        var cocktailList = event.cocktails;
+        var cocktailId = event.id;
+        var ingredient = event.ingredient;
+        cocktail!.ingredients.add(ingredient);
+        FirebaseFirestore.instance
+            .collection("cocktails")
+            .doc(event.id)
+            .update({"ingredients":FieldValue.arrayUnion(cocktail.ingredients)}); //https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
+        emit(CocktailLoadedState(cocktailList, cocktail, cocktailId));
       },
     );
   }

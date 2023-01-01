@@ -20,6 +20,8 @@ class CocktailSettings extends StatefulWidget {
 }
 
 class _CocktailSettings extends State<CocktailSettings> {
+  final nameController = TextEditingController();
+  final descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CocktailBloc, CocktailState>(builder: (context, state) {
@@ -34,12 +36,15 @@ class _CocktailSettings extends State<CocktailSettings> {
         return const Scaffold(body: Text("Loading"));
       }
 
-      var nameController = TextEditingController();
-      var descriptionController = TextEditingController();
-      var addIngredientController = TextEditingController();
-      var addTagController = TextEditingController();
+      final addIngredientController = TextEditingController();
+      final addTagController = TextEditingController();
+
+      if(nameController.text.isEmpty){
       nameController.text = state.cocktail!.name;
+      }
+      if(descriptionController.text.isEmpty){
       descriptionController.text = state.cocktail!.description;
+      }
 
       return Scaffold(
           persistentFooterButtons: [
@@ -72,26 +77,21 @@ class _CocktailSettings extends State<CocktailSettings> {
                     controller: nameController,
                   ),
                   TextFormField(
+                    decoration: const InputDecoration(labelText: "Description"),
                     controller: descriptionController,
                   ),
                   TextFormField(
+                    decoration: const InputDecoration(labelText: "Add ingredient"),
                     controller: addIngredientController,
                   ),
                   IconButton(
                     onPressed: (() {
-                      var ingredientList = state.cocktail!.ingredients;
-                      ingredientList.add(addIngredientController.text);
                       return context.read<CocktailBloc>().add(
-                          UpdateCurrentCocktailEvent(
-                            //TODO : add specific event
+                          AddIngredientToCocktailEvent(
+                              //TODO : add specific event
                               state.id!,
-                              Cocktail(
-                                  cocktailPicture:
-                                      state.cocktail!.cocktailPicture,
-                                  description: state.cocktail!.description,
-                                  ingredients: ingredientList,
-                                  name: state.cocktail!.name,
-                                  tags: state.cocktail!.tags),
+                              addIngredientController.text,
+                              state.cocktail,
                               state.cocktails));
                     }),
                     icon: const Icon(Icons.add_circle),
@@ -126,22 +126,16 @@ class _CocktailSettings extends State<CocktailSettings> {
                             })),
                   ),
                   TextFormField(
+                    decoration: const InputDecoration(labelText: "Add tag"),
                     controller: addTagController,
                   ),
                   IconButton(
                     onPressed: (() {
-                      var tagList = state.cocktail!.tags;
-                      tagList.add(addTagController.text);
                       return context.read<CocktailBloc>().add(
-                          UpdateCurrentCocktailEvent(
+                          AddTagToCocktailEvent(
                               state.id!,
-                              Cocktail(
-                                  cocktailPicture:
-                                      state.cocktail!.cocktailPicture,
-                                  description: state.cocktail!.description,
-                                  ingredients: state.cocktail!.ingredients,
-                                  name: state.cocktail!.name,
-                                  tags: tagList),
+                              addTagController.text,
+                              state.cocktail,
                               state.cocktails));
                     }),
                     icon: const Icon(Icons.add_circle),
@@ -165,13 +159,13 @@ class _CocktailSettings extends State<CocktailSettings> {
                                               state.cocktail!.cocktailPicture,
                                           description:
                                               state.cocktail!.description,
-                                          tags: state
-                                              .cocktail!.tags
+                                          tags: state.cocktail!.tags
                                               .where((element) =>
                                                   element != tagName)
                                               .toList(),
                                           name: state.cocktail!.name,
-                                          ingredients: state.cocktail!.ingredients),
+                                          ingredients:
+                                              state.cocktail!.ingredients),
                                       state.cocktails))
                             })),
                   ),
