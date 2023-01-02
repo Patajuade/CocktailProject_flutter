@@ -16,7 +16,7 @@ class GoToCocktailOverviewButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: IconButton(
               icon: const Icon(Icons.home),
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.primary,
               iconSize: 32,
               onPressed: () => {
                     context

@@ -64,16 +64,16 @@ class _CocktailOverview extends State<CocktailOverview> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                   child: TextFormField(
                     onChanged: _onSearchChanged,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
+                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                    decoration: InputDecoration(
                       hintText: " Search...(tags, ingredients, name)",
-                      hintStyle: TextStyle(color: Colors.white38),
+                      hintStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5)),
                     ),
                   )),
             ],
             automaticallyImplyLeading: false,
             leading: const Icon(Icons.search),
-            backgroundColor: Colors.deepOrange,
+            backgroundColor: Theme.of(context).colorScheme.primary,
           ),
           persistentFooterButtons: [
             IconButton(

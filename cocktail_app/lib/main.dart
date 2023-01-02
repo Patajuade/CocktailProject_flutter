@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
           },
           title: 'Cocktail App',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+              colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.lightGreen)),
           home: const CocktailOverview(),
           debugShowCheckedModeBanner: false,
         ));

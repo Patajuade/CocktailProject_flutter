@@ -7,16 +7,16 @@ class CocktailPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:const EdgeInsets.symmetric(vertical: 5), 
-      child : ClipRRect(
-      borderRadius: BorderRadius.circular(25),
-      child: Image(
-        image: NetworkImage(cocktailPicture),
-        height: 150,
-        width: 150,
-      ),
-    )
-    );
-    
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Theme.of(context).colorScheme.primary,
+            width: 5,
+          ),
+        ),
+        child: Image(
+          image: NetworkImage(cocktailPicture),
+          height: 150,
+          width: 150,
+        ));
   }
 }

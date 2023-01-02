@@ -11,8 +11,8 @@ class Name extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
       child: Text(
         name,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
           fontSize: 36,
           fontWeight: FontWeight.bold,
           

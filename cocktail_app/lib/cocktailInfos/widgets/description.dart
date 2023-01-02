@@ -4,10 +4,6 @@ class Description extends StatelessWidget {
   Description({required this.description, Key? key});
 
   final String description;
-  final TextStyle titleStyle = const TextStyle(
-      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
-  final TextStyle descriptionStyle = const TextStyle(fontSize: 14);
-  final MaterialColor mainColor = Colors.deepOrange;
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +11,22 @@ class Description extends StatelessWidget {
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
         width: double.infinity,
-        color: mainColor.shade200,
+        color: Theme.of(context).colorScheme.primary,
         child: Text(
           'Description',
-          style: titleStyle,
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onPrimary),
           textAlign: TextAlign.left,
         ),
       ),
       Container(
-        width: double.infinity,
-          decoration: const BoxDecoration(boxShadow: [
+          width: double.infinity,
+          decoration: BoxDecoration(boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(255, 202, 202, 202),
-              offset: Offset(
+              color: Theme.of(context).colorScheme.shadow.withOpacity(0.165),
+              offset: const Offset(
                 0.0,
                 10.0,
               ),
@@ -43,9 +42,10 @@ class Description extends StatelessWidget {
               child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  color: mainColor.shade50,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   child: Text(description,
-                      style: descriptionStyle, textAlign: TextAlign.justify))))
+                      style: TextStyle(fontSize: 12,color: Theme.of(context).colorScheme.secondary ),
+                      textAlign: TextAlign.justify))))
     ]);
   }
 }

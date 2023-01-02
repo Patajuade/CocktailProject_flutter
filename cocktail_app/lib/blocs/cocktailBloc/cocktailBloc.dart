@@ -77,10 +77,11 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
         // pas possible d'utiliser where pour la searchbar + flemme d'utiliser un service externe (elastique,algolia,...)
         var cocktailsRefs = await refs.get();
         var cocktailsData = cocktailsRefs.docs;
+        var filter = event.filter.toLowerCase();
         var filteredData = cocktailsData.where((cocktail) =>
-            cocktail.get("name").toString().contains(event.filter) ||
-            cocktail.get('tags').toString().contains(event.filter) ||
-            cocktail.get('ingredients').toString().contains(event.filter));
+            cocktail.get("name").toString().toLowerCase().contains(filter) ||
+            cocktail.get('tags').toString().toLowerCase().contains(filter) ||
+            cocktail.get('ingredients').toString().toLowerCase().contains(filter));
         emit(CocktailLoadedState(filteredData.toList(), cocktail, cocktailId));
       },
     );

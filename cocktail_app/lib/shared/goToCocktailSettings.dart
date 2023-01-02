@@ -14,7 +14,7 @@ class GoToCocktailSettingsButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: IconButton(
               icon: const Icon(Icons.settings),
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.primary,
               iconSize: 32,
               onPressed: () =>
                   {Navigator.pushNamed(context, CocktailSettings.routeName)}));
