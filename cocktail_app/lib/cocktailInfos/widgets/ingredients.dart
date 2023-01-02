@@ -7,22 +7,16 @@ class Ingredients extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
         itemCount: ingredients.length,
-        padding: const EdgeInsets.all(8),
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        prototypeItem:ListTile(
+              title: Center(child: Text(ingredients.first) ),
+          ) ,
+        //separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemBuilder: (BuildContext context, int index) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          width: double.infinity,
-          height: 50,
-          child: Center(
-            child: Text(
-              ingredients[index],
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-        );
+          return ListTile(
+              title: Center(child: Text(ingredients[index]) ),
+          );
       });
   }
 }
@@ -33,17 +27,6 @@ class IngredientsList extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-      child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              minWidth: double.infinity,
-              maxWidth: double.infinity,
-              minHeight: 0,
-              maxHeight: 400, //pour éviter qu'lle s'étende
-            ),
-            child: Ingredients(cocktail.ingredients, key),
-          ),
-    );
+    return Ingredients(cocktail.ingredients,key);
   }
 }

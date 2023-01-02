@@ -35,13 +35,24 @@ class _CocktailInfo extends State<CocktailInfo> {
             GoToCocktailSettingsButton(),
             GoToCocktailOverviewButton()
           ],
-          body: Column(
+          body: Flex(
+            direction: Axis.vertical,
             children: [
-              Header(cocktail: state.cocktail!),
-              Description(description: state.cocktail!.description),
-              IngredientsList(cocktail: state.cocktail!)
+              Flexible(
+                  flex: 2,
+                  fit: FlexFit.tight,
+                  child: Header(cocktail: state.cocktail!)),
+              Flexible(
+                  flex: 3,
+                  fit: FlexFit.tight,
+                  child: Description(description: state.cocktail!.description)),
+              Flexible(
+                  flex: 3,
+                  fit: FlexFit.tight,
+                  child: IngredientsList(cocktail: state.cocktail!))
             ],
-          ));
+          )
+          );
     });
   }
 }

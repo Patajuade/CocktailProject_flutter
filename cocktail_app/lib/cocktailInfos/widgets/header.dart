@@ -10,17 +10,22 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
-      Expanded(
-          child: SizedBox(
-        //pour mettre une width à une colonne
-        width: double.infinity,
-        child: Column(children: [
-          Name(name: cocktail.name),
-          Tags(cocktail.tags),
-        ]),
-      ))
-    ]);
+    return Container(
+      margin:const EdgeInsets.only(bottom:2), 
+      padding:const EdgeInsets.only(top:25, left: 10 , right: 10 ),
+      color: Colors.deepOrange.shade200,
+      child: Row(children: [
+        CocktailPicture(cocktailPicture: cocktail.cocktailPicture),
+        Expanded(
+            child: SizedBox(
+          //pour mettre une width à une colonne
+          width: double.infinity,
+          child: Column(children: [
+            Name(name: cocktail.name),
+            Tags(cocktail.tags),
+          ]),
+        ))
+      ]),
+    );
   }
 }

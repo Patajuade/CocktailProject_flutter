@@ -8,11 +8,12 @@ class Name extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
       child: Text(
         name,
         style: const TextStyle(
-          fontSize: 20,
+          color: Colors.white,
+          fontSize: 36,
           fontWeight: FontWeight.bold,
           
         ),
