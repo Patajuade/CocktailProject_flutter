@@ -8,9 +8,10 @@ class Ingredients extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
         itemCount: ingredients.length,
-        prototypeItem:ListTile(
-              title: Center(child: Text(ingredients.first) ),
+        prototypeItem:const ListTile(
+              title: Center(child: Text("Ingredients")), //sert à prévenir le ListView de ce à quoi va ressembler la Tile même s'il n'a pas encore d'ingrédents. On aurait pu mettre un string vide.
           ) ,
         //separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemBuilder: (BuildContext context, int index) {

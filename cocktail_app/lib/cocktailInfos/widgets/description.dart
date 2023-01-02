@@ -23,6 +23,7 @@ class Description extends StatelessWidget {
         ),
       ),
       Container(
+        width: double.infinity,
           decoration: const BoxDecoration(boxShadow: [
             BoxShadow(
               color: Color.fromARGB(255, 202, 202, 202),
