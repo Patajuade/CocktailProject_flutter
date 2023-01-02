@@ -44,9 +44,8 @@ class _CocktailOverview extends State<CocktailOverview> {
         _debounce = Timer(const Duration(milliseconds: 500), () {
           context
               .read<CocktailBloc>()
-              .add(FilterCocktailListEvent(query,state.id, state.cocktail));
+              .add(FilterCocktailListEvent(query, state.id, state.cocktail));
         });
-
       }
 
       @override
@@ -64,10 +63,15 @@ class _CocktailOverview extends State<CocktailOverview> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                   child: TextFormField(
                     onChanged: _onSearchChanged,
-                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary),
                     decoration: InputDecoration(
                       hintText: " Search...(tags, ingredients, name)",
-                      hintStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5)),
+                      hintStyle: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onPrimary
+                              .withOpacity(0.5)),
                     ),
                   )),
             ],
@@ -87,15 +91,19 @@ class _CocktailOverview extends State<CocktailOverview> {
                         .add(LoadCocktailListEvent(state.id, state.cocktail));
                   });
                 },
-                icon: const Icon(Icons.add_circle))
+                icon: const Icon(Icons.add_circle),
+                color: Theme.of(context).colorScheme.primary,
+                iconSize: 32)
           ],
-          body: cocktails != null && cocktails.isNotEmpty? ListView(
-            children: cocktails.map((document) {
-              var id = document.id;
-              var data = document.data();
-              return Tile(Cocktail.fromJson(data), id);
-            }).toList(),
-          ):const Text("nothing found"));
+          body: cocktails != null && cocktails.isNotEmpty
+              ? ListView(
+                  children: cocktails.map((document) {
+                    var id = document.id;
+                    var data = document.data();
+                    return Tile(Cocktail.fromJson(data), id);
+                  }).toList(),
+                )
+              : const Text("nothing found"));
     });
   }
 }

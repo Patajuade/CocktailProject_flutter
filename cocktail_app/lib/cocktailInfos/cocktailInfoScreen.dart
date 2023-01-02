@@ -31,9 +31,13 @@ class _CocktailInfo extends State<CocktailInfo> {
         return const Scaffold(body: Text("Loading"));
       }
       return Scaffold(
-          persistentFooterButtons: const [
-            GoToCocktailSettingsButton(),
-            GoToCocktailOverviewButton()
+          persistentFooterButtons: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+              GoToCocktailOverviewButton(),
+              GoToCocktailSettingsButton(),
+            ])
           ],
           body: Column(
             children: [

@@ -39,34 +39,37 @@ class _CocktailSettings extends State<CocktailSettings> {
       final addIngredientController = TextEditingController();
       final addTagController = TextEditingController();
 
-      if(nameController.text.isEmpty){
-      nameController.text = state.cocktail!.name;
+      if (nameController.text.isEmpty) {
+        nameController.text = state.cocktail!.name;
       }
-      if(descriptionController.text.isEmpty){
-      descriptionController.text = state.cocktail!.description;
+      if (descriptionController.text.isEmpty) {
+        descriptionController.text = state.cocktail!.description;
       }
 
       return Scaffold(
           persistentFooterButtons: [
-            IconButton(
-                icon: const Icon(Icons.save),
-                color: Colors.black,
-                iconSize: 32,
-                onPressed: () => {
-                      context.read<CocktailBloc>().add(
-                          UpdateCurrentCocktailEvent(
-                              state.id!,
-                              Cocktail(
-                                  cocktailPicture:
-                                      state.cocktail!.cocktailPicture,
-                                  description: descriptionController.text,
-                                  ingredients: state.cocktail!.ingredients,
-                                  name: nameController.text,
-                                  tags: state.cocktail!.tags),
-                              state.cocktails)),
-                      Navigator.pushNamed(context, CocktailInfo.routeName),
-                    }),
-            const GoToCocktailInfoButton()
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              const GoToCocktailInfoButton(),
+              IconButton(
+                  // TODO : refactor to  widget
+                  icon: const Icon(Icons.save),
+                  color: Theme.of(context).colorScheme.primary,
+                  iconSize: 32,
+                  onPressed: () => {
+                        context.read<CocktailBloc>().add(
+                            UpdateCurrentCocktailEvent(
+                                state.id!,
+                                Cocktail(
+                                    cocktailPicture:
+                                        state.cocktail!.cocktailPicture,
+                                    description: descriptionController.text,
+                                    ingredients: state.cocktail!.ingredients,
+                                    name: nameController.text,
+                                    tags: state.cocktail!.tags),
+                                state.cocktails)),
+                        Navigator.pushNamed(context, CocktailInfo.routeName),
+                      }),
+            ])
           ],
           body: Container(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
@@ -81,73 +84,64 @@ class _CocktailSettings extends State<CocktailSettings> {
                     controller: descriptionController,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: "Add ingredient"),
+                    decoration: InputDecoration(
+                      labelText: "Add ingredient",
+                      suffixIcon: IconButton(
+                          onPressed: (() {
+                            return context
+                                .read<CocktailBloc>()
+                                .add(AddIngredientToCocktailEvent(
+                                    //TODO : add specific event
+                                    state.id!,
+                                    addIngredientController.text,
+                                    state.cocktail,
+                                    state.cocktails));
+                          }),
+                          icon: const Icon(Icons.add_circle),
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
                     controller: addIngredientController,
                   ),
-                  IconButton(
-                    onPressed: (() {
-                      return context.read<CocktailBloc>().add(
-                          AddIngredientToCocktailEvent(
-                              //TODO : add specific event
-                              state.id!,
-                              addIngredientController.text,
-                              state.cocktail,
-                              state.cocktails));
-                    }),
-                    icon: const Icon(Icons.add_circle),
-                    color: Colors.green,
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minWidth: double.infinity,
-                      maxWidth: double.infinity,
-                      minHeight: 0,
-                      maxHeight: 100, //pour éviter qu'lle s'étende
-                    ),
-                    child: RemovableListview(
-                        items: state.cocktail!.ingredients,
-                        onPressed: ((ingredientName) => {
-                              context.read<CocktailBloc>().add(
-                                  UpdateCurrentCocktailEvent(
-                                      state.id!,
-                                      Cocktail(
-                                          cocktailPicture:
-                                              state.cocktail!.cocktailPicture,
-                                          description:
-                                              state.cocktail!.description,
-                                          ingredients: state
-                                              .cocktail!.ingredients
-                                              .where((element) =>
-                                                  element != ingredientName)
-                                              .toList(),
-                                          name: state.cocktail!.name,
-                                          tags: state.cocktail!.tags),
-                                      state.cocktails))
-                            })),
-                  ),
+                  Expanded(
+                      child: RemovableListview(
+                          items: state.cocktail!.ingredients,
+                          onPressed: ((ingredientName) => {
+                                context.read<CocktailBloc>().add(
+                                    UpdateCurrentCocktailEvent(
+                                        state.id!,
+                                        Cocktail(
+                                            cocktailPicture:
+                                                state.cocktail!.cocktailPicture,
+                                            description:
+                                                state.cocktail!.description,
+                                            ingredients: state
+                                                .cocktail!.ingredients
+                                                .where((element) =>
+                                                    element != ingredientName)
+                                                .toList(),
+                                            name: state.cocktail!.name,
+                                            tags: state.cocktail!.tags),
+                                        state.cocktails))
+                              }))),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: "Add tag"),
+                    decoration: InputDecoration(
+                      labelText: "Add tag",
+                      suffixIcon: IconButton(
+                        onPressed: (() {
+                          return context.read<CocktailBloc>().add(
+                              AddTagToCocktailEvent(
+                                  state.id!,
+                                  addTagController.text,
+                                  state.cocktail,
+                                  state.cocktails));
+                        }),
+                        icon: const Icon(Icons.add_circle),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                     controller: addTagController,
                   ),
-                  IconButton(
-                    onPressed: (() {
-                      return context.read<CocktailBloc>().add(
-                          AddTagToCocktailEvent(
-                              state.id!,
-                              addTagController.text,
-                              state.cocktail,
-                              state.cocktails));
-                    }),
-                    icon: const Icon(Icons.add_circle),
-                    color: Colors.green,
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minWidth: double.infinity,
-                      maxWidth: double.infinity,
-                      minHeight: 0,
-                      maxHeight: 200, //pour éviter qu'lle s'étende
-                    ),
+                  Expanded(
                     child: RemovableListview(
                         items: state.cocktail!.tags,
                         onPressed: ((tagName) => {
@@ -168,7 +162,7 @@ class _CocktailSettings extends State<CocktailSettings> {
                                               state.cocktail!.ingredients),
                                       state.cocktails))
                             })),
-                  ),
+                  )
                 ],
               )));
     });
