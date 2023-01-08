@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // https://firebase.google.com/docs/firestore/quickstart
 // https://firebase.google.com/docs/firestore/query-data/get-data
 
-class CocktailBloc extends Bloc<CocktailEvent, CocktailState> {
+class CocktailBloc extends Bloc<CocktailEvent, CocktailState> { // manipuler les datas
   CocktailBloc() : super(CocktailLoadingState(null, null, null)) {
+
     on<LoadCocktailListEvent>((event, emit) async {
       var cocktail = event.cocktail;
       var cocktailId = event.id;
