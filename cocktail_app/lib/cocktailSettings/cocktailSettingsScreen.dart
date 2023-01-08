@@ -105,7 +105,7 @@ class _CocktailSettings extends State<CocktailSettings> {
                   Expanded(
                       child: RemovableListview(
                           items: state.cocktail!.ingredients,
-                          onPressed: ((ingredientName) => {
+                          onPressed: ((ingredientName) => { //onPressed de RemovableListViex qu'on passe à tous les elements de la liste
                                 context.read<CocktailBloc>().add(
                                     UpdateCurrentCocktailEvent(
                                         state.id!,

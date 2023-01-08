@@ -82,7 +82,7 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> { // manipuler les
         var filteredData = cocktailsData.where((cocktail) =>
             cocktail.get("name").toString().toLowerCase().contains(filter) ||
             cocktail.get('tags').toString().toLowerCase().contains(filter) ||
-            cocktail.get('ingredients').toString().toLowerCase().contains(filter));
+            cocktail.get('ingredients').toString().toLowerCase().contains(filter)); //met tout le tableau en un long string pour avoir en 1 fois si il contient le filter
         emit(CocktailLoadedState(filteredData.toList(), cocktail, cocktailId));
       },
     );
