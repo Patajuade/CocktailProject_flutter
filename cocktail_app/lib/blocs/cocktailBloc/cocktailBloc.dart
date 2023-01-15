@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // https://firebase.google.com/docs/firestore/query-data/get-data
 
 class CocktailBloc extends Bloc<CocktailEvent, CocktailState> { // manipuler les datas
-  CocktailBloc() : super(CocktailLoadingState(null, null, null)) {
+  CocktailBloc() : super(CocktailLoadingState(null, null, null)) { //le constructeur parent de bloc prend toujours un state
 
     on<LoadCocktailListEvent>((event, emit) async {
       var cocktail = event.cocktail;
@@ -66,7 +66,7 @@ class CocktailBloc extends Bloc<CocktailEvent, CocktailState> { // manipuler les
             .collection("cocktails")
             .doc()
             .set(cocktail.toJson());
-        emit(CocktailLoadingState(null, null, null));
+        emit(CocktailLoadingState(null, null, null)); //je voulais faire une redirection vers la page settings mais je peux pas recupérer l'id comme il est nouveau
       },
     );
 

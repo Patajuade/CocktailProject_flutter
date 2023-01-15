@@ -36,7 +36,7 @@ class RemovableListview extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.remove_circle),
                 color: Theme.of(context).colorScheme.error,
-                onPressed: () => onPressed(items[index]),
+                onPressed: () => onPressed(items[index]), //onPressed est la fonction passée en param du widget, on lui donne l'item de la liste à la position "index" (item = ingredient, index = i)
               ),
               title: Center(
                 child: Row(children: [

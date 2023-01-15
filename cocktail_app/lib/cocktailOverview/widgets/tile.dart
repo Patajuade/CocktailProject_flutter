@@ -21,7 +21,7 @@ class _Tile extends State<Tile> {
   }
 
   @override
-  Widget build(Object context) {
+  Widget build(Object context) { //widget. => correspond au state en haut de l'écran (Tile)
     return BlocBuilder<CocktailBloc, CocktailState>(builder: (context, state) {
       return ListTile(
         title: Text(widget._cocktail.name),

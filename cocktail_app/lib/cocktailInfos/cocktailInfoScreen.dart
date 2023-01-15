@@ -27,7 +27,7 @@ class _CocktailInfo extends State<CocktailInfo> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CocktailBloc, CocktailState>(builder: (context, state) {
-      if (state is CocktailLoadingState || state.cocktail == null) {
+      if (state is CocktailLoadingState || state.cocktail == null) { //il attend juste que state.cocktail == null, l'état est toujours cocktailloadingstate A PRIORI
         return const Scaffold(body: Text("Loading"));
       }
       return Scaffold(

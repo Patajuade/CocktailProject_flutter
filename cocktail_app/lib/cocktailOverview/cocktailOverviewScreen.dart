@@ -85,7 +85,7 @@ class _CocktailOverview extends State<CocktailOverview> {
                   setState(() {
                     context
                         .read<CocktailBloc>()
-                        .add(AddNewCocktailEvent(cocktails));
+                        .add(AddNewCocktailEvent(cocktails)); //update le state (liste de cocktails) avec le nouveau cocktail
                     context
                         .read<CocktailBloc>()
                         .add(LoadCocktailListEvent(state.id, state.cocktail));
@@ -100,7 +100,7 @@ class _CocktailOverview extends State<CocktailOverview> {
                   children: cocktails.map((document) {
                     var id = document.id;
                     var data = document.data();
-                    return Tile(Cocktail.fromJson(data), id);
+                    return Tile(Cocktail.fromJson(data), id); //return 1 tile par element du map
                   }).toList(),
                 )
               : const Text("nothing found"));
